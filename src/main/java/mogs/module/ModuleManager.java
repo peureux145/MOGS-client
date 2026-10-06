@@ -17,8 +17,12 @@ import mogs.module.combat.TargetHighlightModule;
 import mogs.module.combat.TargetInfoModule;
 import mogs.module.combat.TotemCounterModule;
 import mogs.module.combat.WeaponDurabilityModule;
+import mogs.module.misc.CoordSnapperModule;
 import mogs.module.misc.CoordinatesModule;
+import mogs.module.misc.CustomCrosshairModule;
+import mogs.module.misc.WeatherNotifierModule;
 import mogs.module.misc.SessionClockModule;
+import mogs.module.render.FullBrightModule;
 import mogs.module.render.HeldItemModule;
 import mogs.module.visuals.WatermarkModule;
 import mogs.util.Compat;
@@ -62,9 +66,13 @@ public final class ModuleManager {
 		// Misc
 		register(new CoordinatesModule());
 		register(new SessionClockModule());
+		register(new CustomCrosshairModule());
+		register(new CoordSnapperModule());
+		register(new WeatherNotifierModule());
 
 		// Render
 		register(new HeldItemModule());
+		register(new FullBrightModule());
 
 		// Visuals
 		register(new WatermarkModule());

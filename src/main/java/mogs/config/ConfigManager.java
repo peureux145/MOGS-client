@@ -37,6 +37,10 @@ public final class ConfigManager {
 	public static int guiY = -1;
 	public static Category lastCategory = Category.COMBAT;
 
+	/** ClickGUI panel positions (design coordinates) and which panels are collapsed, keyed by category name. */
+	public static final java.util.Map<String, int[]> panelPos = new java.util.HashMap<>();
+	public static final java.util.Set<String> panelClosed = new java.util.HashSet<>();
+
 	private ConfigManager() {
 	}
 
@@ -66,6 +70,21 @@ public final class ConfigManager {
 				JsonObject gui = root.getAsJsonObject("gui");
 				guiX = gui.has("x") ? gui.get("x").getAsInt() : -1;
 				guiY = gui.has("y") ? gui.get("y").getAsInt() : -1;
+				if (gui.has("panels") && gui.get("panels").isJsonObject()) {
+					JsonObject panelsJson = gui.getAsJsonObject("panels");
+					for (String key : panelsJson.keySet()) {
+						if (!panelsJson.get(key).isJsonObject()) {
+							continue;
+						}
+						JsonObject entry = panelsJson.getAsJsonObject(key);
+						if (entry.has("x") && entry.has("y")) {
+							panelPos.put(key, new int[]{entry.get("x").getAsInt(), entry.get("y").getAsInt()});
+						}
+						if (entry.has("closed") && entry.get("closed").getAsBoolean()) {
+							panelClosed.add(key);
+						}
+					}
+				}
 				if (gui.has("category")) {
 					try {
 						lastCategory = Category.valueOf(gui.get("category").getAsString());
@@ -117,6 +136,22 @@ public final class ConfigManager {
 		gui.addProperty("x", guiX);
 		gui.addProperty("y", guiY);
 		gui.addProperty("category", lastCategory.name());
+		JsonObject panelsJson = new JsonObject();
+		for (Category category : Category.values()) {
+			int[] pos = panelPos.get(category.name());
+			boolean closed = panelClosed.contains(category.name());
+			if (pos == null && !closed) {
+				continue;
+			}
+			JsonObject entry = new JsonObject();
+			if (pos != null) {
+				entry.addProperty("x", pos[0]);
+				entry.addProperty("y", pos[1]);
+			}
+			entry.addProperty("closed", closed);
+			panelsJson.add(category.name(), entry);
+		}
+		gui.add("panels", panelsJson);
 		root.add("gui", gui);
 
 		JsonObject modules = new JsonObject();
@@ -167,6 +202,8 @@ public final class ConfigManager {
 		guiX = -1;
 		guiY = -1;
 		lastCategory = Category.COMBAT;
+		panelPos.clear();
+		panelClosed.clear();
 		save();
 	}
 }

@@ -5,6 +5,7 @@ import mogs.gui.clickgui.ClickGuiScreen;
 import mogs.gui.hud.NotificationManager;
 import mogs.module.ModuleManager;
 import mogs.module.client.ClickGuiModule;
+import mogs.module.misc.CustomCrosshairModule;
 import mogs.util.Compat;
 import mogs.util.CombatTracker;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -51,6 +52,13 @@ public final class ClientEvents {
 					ModuleManager.renderHud(graphics, deltaTracker.getGameTimeDeltaPartialTick(false));
 					NotificationManager.render(graphics);
 				});
+
+		// Lets CustomCrosshair hide the vanilla crosshair; otherwise it is drawn exactly as before.
+		HudElementRegistry.replaceElement(VanillaHudElements.CROSSHAIR, original -> (graphics, deltaTracker) -> {
+			if (!CustomCrosshairModule.hidesVanilla()) {
+				original.render(graphics, deltaTracker);
+			}
+		});
 
 		// Fires when the local player manually attacks an entity.
 		AttackEntityCallback.EVENT.register((player, level, hand, entity, hitResult) -> {

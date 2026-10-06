@@ -8,7 +8,7 @@ you aim, click, move, place, use items and switch equipment yourself.
 
 ## Build
 
-Requirements: JDK 21 and Gradle 8.14 or newer (or generate a wrapper once with `gradle wrapper --gradle-version 8.14.3`).
+Requirements: JDK 21 and Gradle 9.2 or newer (or generate a wrapper once with `gradle wrapper --gradle-version 9.2.0`).
 
 ```
 gradle build
@@ -43,12 +43,13 @@ Lunar says not every Fabric mod works with it. If MOGS misbehaves there, use Lun
 
 ## Using the GUI
 
-- Click a category on the left (or Tab / Shift+Tab). Type anywhere to search every module.
-- Click a card to expand its settings. The switch toggles the module; the key badge binds a key
-  (click, press a key; Backspace clears, Esc cancels). Module keybinds work while no screen is open.
-- Up / Down select a card, Enter toggles it, Right / Left expand / collapse it. Esc clears the search, then closes.
-- Drag the title area to move the window. Edit HUD lets you drag elements and scroll over them to resize.
-- Every module has a "Reset settings" button; Reset Config in the sidebar resets everything (click twice to confirm).
+- One panel per category, side by side. Drag a panel by its header to move it, click the header to collapse it,
+  scroll over a panel to scroll it. Panel positions are saved.
+- Click a module to toggle it. Right click it (or click its arrow) to open its settings; the first setting row
+  is its keybind (click it, press a key; Backspace clears, Esc cancels). Module keybinds work while no screen is open.
+- Type anywhere to search every module. Esc clears the search, then closes the menu.
+- Edit HUD (bottom) lets you drag HUD elements and scroll over them to resize.
+- Every module has a "Reset settings" button; Reset Config at the bottom resets everything (click twice to confirm).
 - Client > ClickGUI holds the theme colours, GUI scale, animation and tooltip options.
 
 ## Configuration
@@ -61,7 +62,8 @@ GUI close, shortly after any change, and on game exit.
 
 Combat: Combat HUD, CPS Counter, Attack Cooldown, Target Info, Target Highlight, Hit Statistics,
 Combat Notifications, Weapon Durability, Armor Durability, Totem Counter, Potion Effects, Combat Crosshair, Hit Particles.
-Misc: Coordinates, Session Clock. Render: Held Item. Visuals: Watermark. Client: ClickGUI, Notifications.
+Misc: Coordinates, Session Clock, CustomCrosshair, CoordSnapper, WeatherNotifier. Render: Held Item, FullBright.
+Visuals: Watermark. Client: ClickGUI, Notifications.
 
 ## Adding a module
 
