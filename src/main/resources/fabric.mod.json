@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "mogs",
+  "version": "${version}",
+  "name": "MOGS Client",
+  "description": "MOGS Client - Minecraft ${minecraft_version} · Fabric. A dark, red and gold PvP-style client with a ClickGUI and non-automating combat information modules.",
+  "authors": ["MOGS"],
+  "license": "All-Rights-Reserved",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["mogs.MogsClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.21.11",
+    "java": ">=21"
+  },
+  "recommends": {
+    "fabric-api": "*"
+  }
+}
